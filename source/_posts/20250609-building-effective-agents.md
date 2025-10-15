@@ -3,7 +3,9 @@ title: 【转】构建有效的智能体
 date: 2025-06-09 17:17:17
 tags:
   - agent
+categories: AI
 ---
+![](images/62bcdb39f5dc08c16206e864e2cd7ab1.png)
 
 {% asset_img images/62bcdb39f5dc08c16206e864e2cd7ab1.png %}
 
