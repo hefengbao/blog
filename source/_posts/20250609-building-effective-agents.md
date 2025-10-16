@@ -7,8 +7,6 @@ categories: AI
 ---
 ![](images/62bcdb39f5dc08c16206e864e2cd7ab1.png)
 
-{% asset_img images/62bcdb39f5dc08c16206e864e2cd7ab1.png %}
-
 ## 什么是智能体
 
 “智能体”（Agent）可以有多种定义方式。一些客户将智能体定义为完全自主的系统，能够长时间独立运行，并利用各种工具完成复杂任务。另一些客户则用该术语指代遵循预设流程、更具规范性的实现方式。在 Anthropic，我们将所有这些变体统称为**智能体系统**（agentic systems），但在架构上对**工作流**（workflows）和**智能体**（agents）做出了重要区分：
@@ -47,7 +45,7 @@ categories: AI
 
 智能体系统的基本构建单元是**经过增强的大语言模型（LLM）**，其增强功能包括检索（retrieval）、工具（tools）和记忆（memory）。我们当前的模型能够**主动调用**这些能力——**自主生成搜索查询、选择合适的工具，并决定应留存哪些信息**。
 
-{% asset_img images/d3083d3f40bb2b6f477901cc9a240738d3dd1371-2401x1000.webp %}
+![]( images/d3083d3f40bb2b6f477901cc9a240738d3dd1371-2401x1000.webp)
 
 在实现方面，我们建议重点关注两个关键方面：**针对您的特定用例定制这些能力**，以及**确保它们为您的LLM提供一个简单、文档完善的接口**。虽然实现这些增强功能的方法多种多样，但其中一种方式是通过我们最近发布的 [Model Context Protocol](https://www.anthropic.com/news/model-context-protocol)。该协议允许开发者通过简单的[客户端实现](https://modelcontextprotocol.io/tutorials/building-a-client#building-mcp-clients)，与日益增长的第三方工具生态体系进行集成。
 
@@ -57,7 +55,7 @@ categories: AI
 
 **提示链（Prompt Chaining）** 将一个任务**分解为一系列步骤**，其中**每次LLM调用都处理前一次调用的输出**。您可以在任何中间步骤添加**程序化检查**（参见下图中的“**门控（gate）**”），以确保流程仍在正轨上。
 
-{% asset_img images/7418719e3dab222dccb379b8879e1dc08ad34c78-2401x1000.webp %}
+![]( images/7418719e3dab222dccb379b8879e1dc08ad34c78-2401x1000.webp)
 
 **何时使用此工作流：** 此工作流非常适用于任务**能够轻松、清晰地分解为固定子任务**的情况。其主要目标是**以延迟为代价换取更高的准确性**，因为每个LLM调用处理的任务都变得更简单。
 
@@ -69,7 +67,7 @@ categories: AI
 
 **路由（Routing）** 对输入进行分类，并将其**导向专门的后续任务**。这种工作流实现了**关注点分离（separation of concerns）**，并允许构建**更专业化的提示词**。若不采用此工作流，针对某一类输入的优化可能会损害其他输入的处理效果。
 
-{% asset_img images/5c0c0e9fe4def0b584c04d37849941da55e5e71c-2401x1000.webp %}
+![](images/5c0c0e9fe4def0b584c04d37849941da55e5e71c-2401x1000.webp)
 
 **何时使用此工作流：** 路由非常适用于**处理复杂任务**的情况，特别是当任务中存在**明显不同的类别**（这些类别**更适合分开处理**），并且**分类过程能够准确完成**（无论是通过LLM还是更传统的分类模型/算法）时。
 
@@ -85,7 +83,7 @@ categories: AI
 1. **分块执行（Sectioning）**：将任务**分解为独立的子任务并行运行**。
 2. **投票聚合（Voting）**：**多次运行相同的任务**以获得多样化的输出。
 
-{% asset_img images/406bb032ca007fd1624f261af717d70e6ca86286-2401x1000.webp %}
+![](images/406bb032ca007fd1624f261af717d70e6ca86286-2401x1000.webp)
 
 **何时使用此工作流：** 当**被划分的子任务可以并行执行以提高速度**，或者**需要多种视角或多次尝试以获得更高置信度的结果**时，并行化非常有效。对于**具有多重考量因素的复杂任务**，LLM通常在**每个考量因素由单独的LLM调用处理**时表现更好，这允许模型专注于每个特定的方面。
 
@@ -103,7 +101,7 @@ categories: AI
 
 在**协调者-工作者（Orchestrator-Workers）工作流**中，一个**中央LLM（协调者）** 会**动态地分解任务**，将它们**委派给工作者LLMs**，并**合成它们的结果**。
 
-{% asset_img images/8985fc683fae4780fb34eab1365ab78c7e51bc8e-2401x1000.webp %}
+![](images/8985fc683fae4780fb34eab1365ab78c7e51bc8e-2401x1000.webp)
 
 **何时使用此工作流：** 此工作流非常适合处理**无法预测所需子任务**的复杂任务（例如，在编码任务中，需要修改的文件数量以及每个文件的修改性质很可能取决于具体任务）。虽然**结构上**与并行化（Parallelization）相似，但其关键区别在于**灵活性**——子任务**并非预先定义**，而是由协调者根据具体输入**动态确定**。
 
@@ -116,7 +114,7 @@ categories: AI
 
 在**评估者-优化者（Evaluator-Optimizer）工作流**中，**一个LLM调用负责生成响应**，而**另一个LLM调用则在一个循环中提供评估和反馈**。
 
-{% asset_img images/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.webp %}
+![]( images/14f51e6406ccb29e695da48b17017e899a6119c7-2401x1000.webp)
 
 **何时使用此工作流：** 当我们**拥有清晰的评估标准**，并且**迭代优化能带来可衡量的价值**时，此工作流特别有效。适用该工作流的两个关键信号是：**首先**，当人类明确表达反馈时，LLM的响应能够**得到显著改进**；**其次**，LLM本身**能够提供此类反馈**。这类似于人类作者在创作一篇**经过润色的文档（polished document）** 时可能经历的迭代写作过程。
 
@@ -132,7 +130,7 @@ categories: AI
 
 智能体能够处理**复杂的任务**，但其**实现通常很直接**。它们通常**只是一个循环运行的LLM，基于环境反馈使用工具**。因此，**清晰且深思熟虑地设计工具集及其文档**至关重要。我们在附录 2（“工具提示词工程（Prompt Engineering your Tools）”）中详细阐述了工具开发的最佳实践。
 
-{% asset_img images/58d9f10c985c4eb5d53798dea315f7bb5ab6249e-2401x1000.png %}
+![](images/58d9f10c985c4eb5d53798dea315f7bb5ab6249e-2401x1000.png)
 
 **何时使用智能体：** 智能体适用于处理**开放式问题（open-ended problems）**，这类问题的**所需步骤数量难以或无法预测**，并且**无法硬编码固定路径**。LLM**可能需要运行多个轮次**，因此您必须对其决策能力**有一定程度的信任**。智能体的**自主性（autonomy）** 使其成为在**受信任环境中扩展任务**的理想选择。
 
@@ -144,7 +142,7 @@ categories: AI
 1. 一个用于解决 [SWE-bench 任务](https://www.anthropic.com/research/swe-bench-sonnet)的编码智能体：这些任务涉及**根据任务描述修改多个文件**。
 2. 我们的 [“计算机操作”（“computer use”）参考实现](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo)：在该实现中，Claude **使用计算机来完成各种任务**。
 
-{% asset_img images/4b9a1f4eb63d5962a6e1746ac26bbc857cf3474f-2400x1666.webp %}
+![](images/4b9a1f4eb63d5962a6e1746ac26bbc857cf3474f-2400x1666.webp)
 ### 组合与定制这些模式
 
 这些**构建单元（building blocks）** 并非**规定性的（prescriptive）**。它们是开发者可以**塑造（shape）和组合（combine）** 以适应不同用例的**常见模式（common patterns）**。与任何LLM功能一样，**成功的关键在于衡量性能（measuring performance）并对实现进行迭代（iterating on implementations）**。再次强调：**仅当能够显著改善结果时**，您才应考虑增加复杂性。
