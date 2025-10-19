@@ -103,3 +103,43 @@ theme: leedom
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+
+# leedom 主题
+
+# 用户头像与昵称
+avatar:
+  author_photo: /images/avatar.jpg
+  author_nickname: hefengbao
+  path: /blog/
+  
+# 链接信息
+link: 
+  # name: 名称
+  # icon: 图标，目前仅支持IconFont部分图标
+  # path: 地址
+  # target: 跳转方式
+  -
+    # 档案
+    name: archives
+    icon: bookmark
+    path: /archives/
+  -
+    name: github
+    icon: github
+    path: https://github.com/hefengbao
+    target: _blank
+  -
+    name: weibo
+    icon: weibo
+    path: https://weibo.com/u/7645900557
+    target: _blank
+    
+# 页脚信息
+footer:
+  -
+    name: Copyright © hefengbao
+    path: https://github.com/hefengbao
+  -
+    name: Theme by Leedom | Powered by Hexo
+    path: https://github.com/leedom92/hexo-theme-leedom
